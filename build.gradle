@@ -1,38 +1,44 @@
-buildscript {
-  repositories {
-    mavenLocal()
-    google()
-    mavenCentral()
-    maven {
-      name = 'ajoberstar-backup'
-      url = 'https://ajoberstar.org/bintray-backup/'
-    }
-  }
+// Modifier by UDisc (c) 2023
 
-  dependencies {
-    classpath 'com.android.tools.build:gradle:8.0.0'
-    classpath 'com.google.gms:google-services:4.3.4'
-    classpath "org.ajoberstar.grgit:grgit-gradle:${AJOBERSTAR_GIT_GRADLE_PLUGIN_VERSION}"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${KOTLIN_VERSION}"
-  }
+buildscript {
+    repositories {
+        mavenLocal()
+        google()
+        mavenCentral()
+        maven {
+            name = 'ajoberstar-backup'
+            url = 'https://ajoberstar.org/bintray-backup/'
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.0'
+        classpath 'com.google.gms:google-services:4.3.4'
+        classpath "org.ajoberstar.grgit:grgit-gradle:${AJOBERSTAR_GIT_GRADLE_PLUGIN_VERSION}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${KOTLIN_VERSION}"
+    }
+}
+
+plugins {
+    id 'maven-publish'
 }
 
 ext {
-  compileSdkVersion = 34
-  buildToolsVersion = '34.0.0'
-  minSdkVersion = 21
-  targetSdkVersion = 34
-  appVersionName = '29.0.1'
+    compileSdkVersion = 34
+    buildToolsVersion = '34.0.0'
+    minSdkVersion = 21
+    targetSdkVersion = 34
+    appVersionName = '29.0.1'
 }
 
 subprojects {
-  repositories {
-    maven { url "https://braze-inc.github.io/braze-android-sdk/sdk" }
-    mavenLocal()
-    google()
-    mavenCentral()
-  }
+    repositories {
+        maven { url "https://braze-inc.github.io/braze-android-sdk/sdk" }
+        mavenLocal()
+        google()
+        mavenCentral()
+    }
 
-  group = 'com.braze'
-  version = '29.0.1'
+    group = 'com.braze'
+    version = '29.0.1-udisc'
 }
