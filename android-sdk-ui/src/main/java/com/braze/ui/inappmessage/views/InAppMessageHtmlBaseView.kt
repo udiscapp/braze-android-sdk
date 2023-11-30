@@ -35,6 +35,8 @@ import com.braze.ui.support.getMaxSafeTopInset
 import com.braze.ui.support.isDeviceInNightMode
 import com.braze.ui.support.setFocusableInTouchModeAndRequestFocus
 
+// Modified by UDisc (c) 2023
+
 abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?) :
     RelativeLayout(context, attrs), IInAppMessageView {
 
@@ -78,8 +80,7 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
             webSettings.loadWithOverviewMode = true
             webSettings.displayZoomControls = false
             webSettings.domStorageEnabled = true
-            // Needed since locally downloaded assets are under `file://` schemes
-            webSettings.allowFileAccess = true
+            webSettings.allowFileAccess = false
             // This enables hardware acceleration if the manifest also has it defined.
             // If not defined, then the layer type will fallback to software.
             webView.setLayerType(LAYER_TYPE_HARDWARE, null)
@@ -105,7 +106,8 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
                 brazelog(E, e) { "Failed to set dark mode WebView settings" }
             }
 
-            val isLinkTargetSupported = BrazeConfigurationProvider(this.context).isHtmlInAppMessageHtmlLinkTargetEnabled
+            val isLinkTargetSupported =
+                BrazeConfigurationProvider(this.context).isHtmlInAppMessageHtmlLinkTargetEnabled
             if (isLinkTargetSupported) {
                 webView.settings.setSupportMultipleWindows(true)
                 brazelog(V) { "HtmlInAppMessageHtmlLinkTarget enabled" }
@@ -117,11 +119,11 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
                 override fun onConsoleMessage(cm: ConsoleMessage): Boolean {
                     this@InAppMessageHtmlBaseView.brazelog {
                         (
-                            "Braze HTML In-app Message log. Line: " + cm.lineNumber()
-                                + ". SourceId: " + cm.sourceId()
-                                + ". Log Level: " + cm.messageLevel()
-                                + ". Message: " + cm.message()
-                            )
+                                "Braze HTML In-app Message log. Line: " + cm.lineNumber()
+                                        + ". SourceId: " + cm.sourceId()
+                                        + ". Log Level: " + cm.messageLevel()
+                                        + ". Message: " + cm.message()
+                                )
                     }
                     return true
                 }
@@ -163,7 +165,7 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
                             else -> {
                                 brazelog(V) {
                                     "onCreateWindow: hitTestResult type was ${result.type}. " +
-                                        "Not doing anything."
+                                            "Not doing anything."
                                 }
                             }
                         }
