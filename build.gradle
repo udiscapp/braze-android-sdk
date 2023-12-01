@@ -30,7 +30,7 @@ ext {
     buildToolsVersion = '34.0.0'
     minSdkVersion = 26
     targetSdkVersion = 34
-    appVersionName = '29.0.1-udisc'
+    appVersionName = '29.0.2-udisc'
 }
 
 subprojects {
@@ -41,6 +41,6 @@ subprojects {
         mavenCentral()
     }
 
-    group = 'com.braze'
-    version = '29.0.1-udisc'
+    group = 'com.github.udiscapp'
+    version = '29.0.2-udisc'
 }
