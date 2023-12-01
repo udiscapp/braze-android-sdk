@@ -1,6 +1,6 @@
 apply plugin: 'kotlin-android'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
   options.deprecation = true
   options.compilerArgs += ['-Xlint:deprecation']
 
@@ -10,7 +10,7 @@ tasks.withType(JavaCompile) {
   }
 }
 
-project.tasks.whenTaskAdded { task ->
+project.tasks.configureEach { task ->
   var tn = task.name.toLowerCase()
   if (tn.contains("kotlin")) {
     kotlinOptions {

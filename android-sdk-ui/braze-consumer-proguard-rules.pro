@@ -6,13 +6,13 @@
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
-#-keepnames class com.braze.ui.** { *; }
-#-keepnames class com.braze.** { *; }
-#-keepnames class bo.app.** { *; }
-#
-#-dontwarn com.braze.ui.**
+-keepnames class com.braze.ui.** { *; }
+-keepnames class com.braze.** { *; }
+-keepnames class bo.app.** { *; }
+
+-dontwarn com.braze.ui.**
 -dontwarn com.google.firebase.messaging.**
-#
-#-keepclassmembers class * {
-#   @android.webkit.JavascriptInterface <methods>;
-#}
+
+-keepclassmembers class * {
+   @android.webkit.JavascriptInterface <methods>;
+}
