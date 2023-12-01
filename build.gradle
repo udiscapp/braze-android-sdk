@@ -20,7 +20,7 @@ buildscript {
 }
 
 plugins {
-    id 'maven'
+    id 'maven-publish'
 }
 
 ext {
