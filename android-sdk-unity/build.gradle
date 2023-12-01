@@ -1,31 +1,32 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 dependencies {
-  compileOnly files("libs/Prime31UnityActivity-1.0.jar")
-  compileOnly files("libs/unity-2019.2.12f1.jar")
-  compileOnly "androidx.annotation:annotation:${ANDROIDX_ANNOTATIONS_VERSION}"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:${KOTLIN_VERSION}"
-  implementation project(':android-sdk-ui')
+    compileOnly files("libs/Prime31UnityActivity-1.0.jar")
+    compileOnly files("libs/unity-2019.2.12f1.jar")
+    compileOnly "androidx.annotation:annotation:${ANDROIDX_ANNOTATIONS_VERSION}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${KOTLIN_VERSION}"
+    implementation project(':android-sdk-ui')
 }
 
 android {
-  namespace "com.braze.unity"
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+    namespace "com.braze.unity"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-  defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
-  }
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
 
-  kotlinOptions {
-    freeCompilerArgs = ['-Xjvm-default=all']
-    jvmTarget = "1.8"
-  }
+    kotlinOptions {
+        freeCompilerArgs = ['-Xjvm-default=all']
+        jvmTarget = "1.8"
+    }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
