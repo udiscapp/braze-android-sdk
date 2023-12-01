@@ -11,7 +11,7 @@
 #-keepnames class bo.app.** { *; }
 #
 #-dontwarn com.braze.ui.**
-#-dontwarn com.google.firebase.messaging.**
+-dontwarn com.google.firebase.messaging.**
 #
 #-keepclassmembers class * {
 #   @android.webkit.JavascriptInterface <methods>;
