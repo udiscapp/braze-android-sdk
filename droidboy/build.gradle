@@ -46,9 +46,6 @@ android {
     multiDexEnabled true
   }
 
-  lintOptions {
-    disable 'MissingTranslation'
-  }
 
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,5 +55,8 @@ android {
   kotlinOptions {
     freeCompilerArgs = ['-Xjvm-default=all']
     jvmTarget = "1.8"
+  }
+  lint {
+    disable 'MissingTranslation'
   }
 }
