@@ -80,7 +80,6 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
             webSettings.loadWithOverviewMode = true
             webSettings.displayZoomControls = false
             webSettings.domStorageEnabled = true
-            webSettings.allowFileAccess = false
             // This enables hardware acceleration if the manifest also has it defined.
             // If not defined, then the layer type will fallback to software.
             webView.setLayerType(LAYER_TYPE_HARDWARE, null)

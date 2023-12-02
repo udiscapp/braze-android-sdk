@@ -51,7 +51,6 @@ open class BrazeWebViewActivity : FragmentActivity() {
         val webView = findViewById<WebView>(R.id.com_braze_webview_activity_webview)
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         val webSettings = webView.settings
-        webSettings.allowFileAccess = false
         webSettings.builtInZoomControls = true
         webSettings.javaScriptEnabled = true
         webSettings.useWideViewPort = true
