@@ -79,7 +79,7 @@ open class UriAction : IAction {
             BrazeActionParser.execute(context, uri, channel)
         } else {
             brazelog { "Executing Uri action from channel $channel: $uri. UseWebView: $useWebView. Extras: $extras" }
-            if (useWebView && REMOTE_SCHEMES.contains(uri.scheme)) {
+            if (useWebView && listOf("http", "https").contains(uri.scheme)) {
                 // If the scheme is not a remote scheme, we open it using an ACTION_VIEW intent.
                 if (channel == Channel.PUSH) {
                     openUriWithWebViewActivityFromPush(context, uri, extras)

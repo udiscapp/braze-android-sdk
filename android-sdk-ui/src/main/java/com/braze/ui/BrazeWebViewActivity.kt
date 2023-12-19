@@ -118,7 +118,7 @@ open class BrazeWebViewActivity : FragmentActivity() {
              */
             private fun handleUrlOverride(context: Context, url: String): Boolean? {
                 try {
-                    if (REMOTE_SCHEMES.contains(Uri.parse(url).scheme)) {
+                    if (listOf("http", "https").contains(Uri.parse(url).scheme)) {
                         return null
                     }
                     val action: IAction? = getInstance().createUriActionFromUrlString(url, intent.extras, false, Channel.UNKNOWN)
