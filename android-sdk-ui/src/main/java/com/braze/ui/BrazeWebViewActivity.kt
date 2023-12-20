@@ -21,7 +21,6 @@ import com.braze.enums.Channel
 import com.braze.support.BrazeLogger.Priority.E
 import com.braze.support.BrazeLogger.Priority.I
 import com.braze.support.BrazeLogger.brazelog
-import com.braze.support.REMOTE_SCHEMES
 import com.braze.ui.BrazeDeeplinkHandler.Companion.getInstance
 import com.braze.ui.actions.IAction
 import com.braze.ui.support.isDeviceInNightMode
@@ -118,7 +117,7 @@ open class BrazeWebViewActivity : FragmentActivity() {
              */
             private fun handleUrlOverride(context: Context, url: String): Boolean? {
                 try {
-                    if (REMOTE_SCHEMES.contains(Uri.parse(url).scheme)) {
+                    if (Uri.parse(url).scheme == "https") {
                         return null
                     }
                     val action: IAction? = getInstance().createUriActionFromUrlString(url, intent.extras, false, Channel.UNKNOWN)

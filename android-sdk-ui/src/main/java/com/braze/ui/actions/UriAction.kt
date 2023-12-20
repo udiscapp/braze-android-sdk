@@ -10,15 +10,14 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import com.braze.Constants
-import com.braze.enums.Channel
 import com.braze.IBrazeDeeplinkHandler
 import com.braze.configuration.BrazeConfigurationProvider
+import com.braze.enums.Channel
 import com.braze.support.BrazeLogger.Priority.E
 import com.braze.support.BrazeLogger.Priority.I
 import com.braze.support.BrazeLogger.Priority.V
 import com.braze.support.BrazeLogger.Priority.W
 import com.braze.support.BrazeLogger.brazelog
-import com.braze.support.REMOTE_SCHEMES
 import com.braze.support.isLocalUri
 import com.braze.ui.BrazeDeeplinkHandler
 import com.braze.ui.BrazeWebViewActivity
@@ -79,7 +78,7 @@ open class UriAction : IAction {
             BrazeActionParser.execute(context, uri, channel)
         } else {
             brazelog { "Executing Uri action from channel $channel: $uri. UseWebView: $useWebView. Extras: $extras" }
-            if (useWebView && REMOTE_SCHEMES.contains(uri.scheme)) {
+            if (useWebView && uri.scheme == "https") {
                 // If the scheme is not a remote scheme, we open it using an ACTION_VIEW intent.
                 if (channel == Channel.PUSH) {
                     openUriWithWebViewActivityFromPush(context, uri, extras)
@@ -174,14 +173,15 @@ open class UriAction : IAction {
      */
     protected fun getWebViewActivityIntent(context: Context, uri: Uri, extras: Bundle?): Intent {
         val configurationProvider = BrazeConfigurationProvider(context)
-        val customWebViewActivityClassName = configurationProvider.customHtmlWebViewActivityClassName
+        val customWebViewActivityClassName =
+            configurationProvider.customHtmlWebViewActivityClassName
 
         // If the class is valid and is manifest registered, use it as the launching intent
         val webViewActivityIntent: Intent = if (!customWebViewActivityClassName.isNullOrBlank()
             && isActivityRegisteredInManifest(
-                    context,
-                    customWebViewActivityClassName
-                )
+                context,
+                customWebViewActivityClassName
+            )
         ) {
             brazelog { "Launching custom WebView Activity with class name: $customWebViewActivityClassName" }
             Intent()
@@ -206,7 +206,10 @@ open class UriAction : IAction {
 
         // If the current app can already handle the intent, default to using it
         val resolveInfos = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(0))
+            context.packageManager.queryIntentActivities(
+                intent,
+                PackageManager.ResolveInfoFlags.of(0)
+            )
         } else {
             @Suppress("DEPRECATION")
             context.packageManager.queryIntentActivities(intent, 0)
