@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
+import com.braze.BrazeInternal
 import com.braze.Constants
 import com.braze.IBrazeDeeplinkHandler
 import com.braze.configuration.BrazeConfigurationProvider
@@ -129,7 +130,7 @@ open class UriAction : IAction {
      * @see [UriAction.getIntentArrayWithConfiguredBackStack]
      */
     protected fun openUriWithWebViewActivityFromPush(context: Context, uri: Uri, extras: Bundle?) {
-        val configurationProvider = BrazeConfigurationProvider(context)
+        val configurationProvider = BrazeInternal.getConfigurationProvider(context)
         try {
             val webViewIntent = getWebViewActivityIntent(context, uri, extras)
             context.startActivities(
@@ -152,7 +153,7 @@ open class UriAction : IAction {
      * @see [UriAction.getIntentArrayWithConfiguredBackStack]
      */
     protected fun openUriWithActionViewFromPush(context: Context, uri: Uri, extras: Bundle?) {
-        val configurationProvider = BrazeConfigurationProvider(context)
+        val configurationProvider = BrazeInternal.getConfigurationProvider(context)
         try {
             val uriIntent = getActionViewIntent(context, uri, extras)
             context.startActivities(
@@ -172,9 +173,8 @@ open class UriAction : IAction {
      * Returns an intent that opens the uri inside of a [BrazeWebViewActivity].
      */
     protected fun getWebViewActivityIntent(context: Context, uri: Uri, extras: Bundle?): Intent {
-        val configurationProvider = BrazeConfigurationProvider(context)
-        val customWebViewActivityClassName =
-            configurationProvider.customHtmlWebViewActivityClassName
+        val configurationProvider = BrazeInternal.getConfigurationProvider(context)
+        val customWebViewActivityClassName = configurationProvider.customHtmlWebViewActivityClassName
 
         // If the class is valid and is manifest registered, use it as the launching intent
         val webViewActivityIntent: Intent = if (!customWebViewActivityClassName.isNullOrBlank()

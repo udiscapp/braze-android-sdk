@@ -24,6 +24,7 @@ import com.braze.support.BrazeLogger.Priority.E
 import com.braze.support.BrazeLogger.Priority.V
 import com.braze.support.BrazeLogger.Priority.W
 import com.braze.support.BrazeLogger.brazelog
+import com.braze.support.WebContentUtils.ASSET_LOADER_DUMMY_DOMAIN
 import com.braze.ui.inappmessage.BrazeInAppMessageManager
 import com.braze.ui.inappmessage.listeners.IWebViewClientStateListener
 import com.braze.ui.inappmessage.utils.InAppMessageViewUtils.closeInAppMessageOnKeycodeBack
@@ -209,12 +210,11 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
      */
     @JvmOverloads
     open fun setWebViewContent(htmlBody: String?, assetDirectoryUrl: String? = null) {
-        // File URIs must be loaded with this "file://" scheme
-        // since our html might have mixed http/data/file content
-        // See https://developer.android.com/reference/android/webkit/WebView#loadData(java.lang.String,%20java.lang.String,%20java.lang.String)
+        // For files, we use a dummy URL and the [WebViewAssetLoader] uses the same URL for local files. This allows
+        // us to load local files without the security risks of settings [allowFileAccess] to true.
         if (htmlBody != null) {
             messageWebView?.loadDataWithBaseURL(
-                "$FILE_URI_SCHEME_PREFIX$assetDirectoryUrl/",
+                "https://$ASSET_LOADER_DUMMY_DOMAIN/",
                 htmlBody,
                 HTML_MIME_TYPE,
                 HTML_ENCODING,
@@ -322,7 +322,6 @@ abstract class InAppMessageHtmlBaseView(context: Context?, attrs: AttributeSet?)
     companion object {
         private const val HTML_MIME_TYPE = "text/html"
         private const val HTML_ENCODING = "utf-8"
-        private const val FILE_URI_SCHEME_PREFIX = "file://"
 
         /**
          * A url for the [WebView] to load when display is finished.

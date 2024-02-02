@@ -30,7 +30,7 @@ ext {
     buildToolsVersion = '34.0.0'
     minSdkVersion = 26
     targetSdkVersion = 34
-    appVersionName = '29.0.2-udisc'
+    appVersionName = '30.0.0-udisc'
 }
 
 subprojects {
@@ -42,5 +42,5 @@ subprojects {
     }
 
     group = 'com.github.udiscapp'
-    version = '29.0.2-udisc'
+    version = '30.0.0-udisc'
 }
